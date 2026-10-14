@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      // In a real scenario, you'd check a custom claim or a user document role
+      // For now, we assume any authenticated user IS an admin (based on current app logic)
+      return isAuthenticated(); 
+    }
+
+    // Products: Public Read, Admin Write
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Categories/Collections: Public Read, Admin Write
+    match /categories/{catId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Leads: Public Create, Admin Read/Update/Delete
+    match /leads/{leadId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Appointments: Public Create, Admin Read/Update/Delete
+    match /appointments/{appointmentId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Newsletter: Public Create, Admin Read/Update/Delete
+    match /newsletter/{entryId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Settings & Config: Admin Read/Write (Used by Site Monitor & Integrations)
+    match /settings/{document=**} {
+      allow read, write: if isAdmin();
+    }
+    match /config/{document=**} {
+      allow read, write: if isAdmin();
+    }
+
+    // Admin Logs: Admin Read/Write
+    match /admin_audit_logs/{logId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Analytics: Public Write (Increment), Admin Read
+    match /analytics/{document=**} {
+      // Allow public to write specific fields (like views) or subcollections
+      // For simplicity in this context, we allow public write (needed for increment)
+      // and admin read.
+      allow read: if isAdmin(); 
+      allow write: if true; 
+    }
+    
+    // Default Deny for everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

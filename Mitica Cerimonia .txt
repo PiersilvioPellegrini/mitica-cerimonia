@@ -1,0 +1,9 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyABfrO2DNt3yvYdxlbiken3GOdDvObYDXc",
+  authDomain: "mitica-cerimonia-1f1d4.firebaseapp.com",
+  projectId: "mitica-cerimonia-1f1d4",
+  storageBucket: "mitica-cerimonia-1f1d4.firebasestorage.app",
+  messagingSenderId: "850221213281",
+  appId: "1:850221213281:web:349e0fcfde6fed0622ac20",
+  measurementId: "G-HPSLH3M500"
+};

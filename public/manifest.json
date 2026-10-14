@@ -1,0 +1,16 @@
+{
+    "name": "Mitica Cerimonia",
+    "short_name": "Mitica",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "description": "Atelier Abiti da Cerimonia, Sposa e Sposo a Roma",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "64x64",
+            "type": "image/x-icon"
+        }
+    ]
+}
